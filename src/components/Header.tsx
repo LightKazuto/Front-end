@@ -1,5 +1,6 @@
 "use client";
 import React, { FC } from "react";
+import { useRouter } from 'next/router'
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,14 +8,15 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+
 
 const ButtonAppBar: FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter()
+
   const handleLogout = async () => {
     alert("Logout success");
     localStorage.clear();
-    navigate("/");
+    router.push('/login')
   };
 
   return (
