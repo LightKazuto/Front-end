@@ -1,13 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import {
-  CssBaseline,
-  Paper,
-  Container,
-  Grid
-} from "@mui/material";
-import SignUpImg from "../../assets/images/signup_img.jpg";
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 
 const DynamicRegisterForm = dynamic(() => import('./RegisterForm'), {
@@ -52,13 +49,10 @@ const RegisterPage: React.FC = () => {
         >
           <div style={{ maxWidth: '90%', maxHeight: 'auto' }}>
           <img 
-            src={SignUpImg.src} 
+            src="https://img.freepik.com/free-vector/vegetable-seller-concept-illustration_114360-13388.jpg?t=st=1722948115~exp=1722951715~hmac=347ca082475cb9aa3ee622b6484d9f3c0f362d2ad0a9baa410c5954898203193&w=740" 
             alt="Description" 
             style={{ width: '100%', height: 'auto', objectFit: 'contain' }} 
           />
-            <div style={{ textAlign: 'right' }}>
-              <a href="https://www.freepik.com/free-vector/vegetable-seller-concept-illustration_34719705.htm#fromView=search&page=1&position=37&uuid=3a80ea3c-3ac0-4ad6-8351-04d5ce7c8ae5">Image by storyset on Freepik</a>
-            </div>
           </div>
         </Grid>
       </Grid>
