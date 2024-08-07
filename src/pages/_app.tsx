@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import './styles/globals.css';
-import Navbar from '@/components/navbar';
+import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
 
 const theme = createTheme();
