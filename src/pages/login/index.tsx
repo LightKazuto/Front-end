@@ -26,7 +26,6 @@ import {
 } from '@mui/icons-material';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface IFormInputs {
@@ -42,12 +41,11 @@ const LoginPage: React.FC = () => {
     },
   });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>('');
-
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     const formData = new FormData();
@@ -68,7 +66,7 @@ const LoginPage: React.FC = () => {
         console.log(result);
         localStorage.setItem("token", "authenticated");
         setSubmitSuccess(true);
-        router.push('/dashboard')
+        router.push('/dashboard');
       } else {
         const error = await response.json();
         setSubmitError(error.message);
@@ -105,13 +103,19 @@ const LoginPage: React.FC = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            position: 'relative',
           }}
         >
-          <div style={{ maxWidth: '90%', maxHeight: 'auto' }}>
-            <img 
+          <div style={{ maxWidth: '90%', maxHeight: 'auto', position: 'relative' }}>
+            <img
               src="https://img.freepik.com/free-vector/happy-farmers-selling-fresh-vegetables_74855-10754.jpg?t=st=1722830501~exp=1722834101~hmac=e7a4a79ff094d5f8d8fc87c4301ad9eafa96d8c67ffe5214226f266c9a10ceb1&w=740"
-              alt="Login" 
-              style={{ width: '100%', height: 'auto', objectFit: 'contain' }} 
+              alt="Login"
+              style={{
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                clipPath: 'path("M0,40 Q40,0 80,40 T160,40 Q120,80 80,40 T0,40 Z")', // Example of a leaf-like shape
+              }}
             />
           </div>
         </Grid>
@@ -146,14 +150,14 @@ const LoginPage: React.FC = () => {
                 name="email"
                 control={control}
                 rules={{ 
-                required: 'Email is required',
-                pattern: {
+                  required: 'Email is required',
+                  pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'Invalid email address',
-                }
+                  }
                 }}
                 render={({ field }) => (
-                <TextField
+                  <TextField
                     {...field}
                     variant="standard"
                     margin="normal"
@@ -166,27 +170,27 @@ const LoginPage: React.FC = () => {
                     error={!!errors.email}
                     helperText={errors.email?.message}
                     InputProps={{
-                    startAdornment: (
+                      startAdornment: (
                         <InputAdornment position="start">
-                            <Email />
+                          <Email />
                         </InputAdornment>
-                    ),
+                      ),
                     }}
-                />
+                  />
                 )}
-            />
+              />
               <Controller
                 name="password"
                 control={control}
                 rules={{ 
-                required: 'Password is required',
-                minLength: {
+                  required: 'Password is required',
+                  minLength: {
                     value: 8,
                     message: 'Password must be at least 8 characters',
-                }
+                  }
                 }}
                 render={({ field }) => (
-                <TextField
+                  <TextField
                     {...field}
                     variant="standard"
                     margin="normal"
@@ -199,22 +203,22 @@ const LoginPage: React.FC = () => {
                     error={!!errors.password}
                     helperText={errors.password?.message}
                     InputProps={{
-                    startAdornment: (
+                      startAdornment: (
                         <InputAdornment position="start">
-                            <Lock />
+                          <Lock />
                         </InputAdornment>
-                    ),
+                      ),
                     }}
-                />
+                  />
                 )}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label={
                   <Typography variant="body2" color="textSecondary">
-                      Remember me
+                    Remember me
                   </Typography>
-                  }
+                }
               />
               <Button
                 type="submit"
@@ -222,33 +226,37 @@ const LoginPage: React.FC = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                  {isSubmitting ? <CircularProgress size={24} /> : 'Login'}
+                {isSubmitting ? <CircularProgress size={24} /> : 'Login'}
               </Button>
               <Snackbar 
                 open={submitSuccess} 
                 autoHideDuration={3000} 
                 onClose={() => setSubmitSuccess(false)}
               >
-                  <Alert onClose={() => setSubmitSuccess(false)} severity="success" sx={{ width: '100%' }}>
+                <Alert onClose={() => setSubmitSuccess(false)} severity="success" sx={{ width: '100%' }}>
                   Login successful!
-                  </Alert>
+                </Alert>
               </Snackbar>
               <Snackbar 
-                  open={!!submitError} 
-                  autoHideDuration={3000} 
-                  onClose={() => setSubmitError('')}
+                open={!!submitError} 
+                autoHideDuration={3000} 
+                onClose={() => setSubmitError('')}
               >
-                  <Alert onClose={() => setSubmitError('')} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={() => setSubmitError('')} severity="error" sx={{ width: '100%' }}>
                   {submitError}
-                  </Alert>
+                </Alert>
               </Snackbar>
               <Grid container>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
             </Box>
           </Box>
@@ -256,5 +264,6 @@ const LoginPage: React.FC = () => {
       </Grid>
     </Container>
   );
-}
+};
+
 export default LoginPage;
