@@ -26,3 +26,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.clip-leaf {
+  clip-path: path('M0,40 Q40,0 80,40 T160,40 Q120,80 80,40 T0,40 Z');
+}
