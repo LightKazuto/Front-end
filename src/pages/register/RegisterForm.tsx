@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import {
-    Avatar,
-    Button,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Link,
-    Box,
-    Grid,
-    Typography,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    InputAdornment,
-    CircularProgress,
-    Snackbar,
-    Alert
-  } from "@mui/material";
-  import {
-    AccountCircle,
-    Email,
-    Badge,
-    Lock,
-    CheckBox,
-  } from '@mui/icons-material';
-  import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-  import Select from "@mui/material/Select";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Email from '@mui/icons-material/Email';
+import Lock from '@mui/icons-material/Lock';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Badge from '@mui/icons-material/Badge';
+import CheckBox from '@mui/icons-material/CheckBox';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Select from "@mui/material/Select";
   
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
