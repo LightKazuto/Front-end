@@ -60,9 +60,20 @@ const LoginPage: React.FC = () => {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        localStorage.setItem("token", "authenticated");
-        setSubmitSuccess(true);
-        router.push('/dashboard');
+
+        await Promise.all([
+          localStorage.setItem('token', 'authenticated'),
+          localStorage.setItem('userRole', result.role)
+        ]);
+
+        const storedRole = await localStorage.getItem('userRole');
+        if (storedRole === result.role) {
+          setSubmitSuccess(true);
+          await router.push('/');
+          return result;
+        } else {
+          setSubmitError("Failed to store user role in local storage.");
+        }
       } else {
         const error = await response.json();
         setSubmitError(error.message);
@@ -110,7 +121,7 @@ const LoginPage: React.FC = () => {
                 width: '100%',
                 height: 'auto',
                 objectFit: 'contain',
-                clipPath: 'path("M0,40 Q40,0 80,40 T160,40 Q120,80 80,40 T0,40 Z")', // Example of a leaf-like shape
+                clipPath: 'path("M0,40 Q40,0 80,40 T160,40 Q120,80 80,40 T0,40 Z")',
               }}
             />
           </div>
