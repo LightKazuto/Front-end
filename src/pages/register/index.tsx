@@ -16,7 +16,7 @@ const DynamicRegisterForm = dynamic(() => import('./RegisterForm'), {
 })
 
 const RegisterPage: React.FC = () => {
-  const router = useRouter()
+const router = useRouter()
 
   return (
     <Container component="main"
@@ -37,7 +37,7 @@ const RegisterPage: React.FC = () => {
           sm={8}
           md={5}
         >
-          <DynamicRegisterForm router={router} />
+          <DynamicRegisterForm />
         </Grid>
         <Grid 
           item
