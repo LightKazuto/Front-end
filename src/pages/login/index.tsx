@@ -69,7 +69,7 @@ const LoginPage: React.FC = () => {
         const storedRole = await localStorage.getItem('userRole');
         if (storedRole === result.role) {
           setSubmitSuccess(true);
-          await router.push('/');
+          await router.push('/home');
           return result;
         } else {
           setSubmitError("Failed to store user role in local storage.");
@@ -109,19 +109,17 @@ const LoginPage: React.FC = () => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
+            alignItems: 'center'
           }}
         >
-          <div style={{ maxWidth: '90%', maxHeight: 'auto', position: 'relative' }}>
+          <div style={{ maxWidth: '90%', maxHeight: 'auto' }}>
             <img
               src="https://img.freepik.com/free-vector/happy-farmers-selling-fresh-vegetables_74855-10754.jpg?t=st=1722830501~exp=1722834101~hmac=e7a4a79ff094d5f8d8fc87c4301ad9eafa96d8c67ffe5214226f266c9a10ceb1&w=740"
               alt="Login"
               style={{
                 width: '100%',
                 height: 'auto',
-                objectFit: 'contain',
-                clipPath: 'path("M0,40 Q40,0 80,40 T160,40 Q120,80 80,40 T0,40 Z")',
+                objectFit: 'contain'
               }}
             />
           </div>
@@ -254,16 +252,12 @@ const LoginPage: React.FC = () => {
                 </Alert>
               </Snackbar>
               <Grid container>
-                <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid>
-                <Grid item>
                   <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
-                </Grid>
               </Grid>
             </Box>
           </Box>
