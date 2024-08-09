@@ -195,7 +195,7 @@ const RegisterForm: React.FC = () => {
                         </InputAdornment>
                     }
                     >
-                    <MenuItem value="buyer">Buyer</MenuItem>
+                    <MenuItem value="user">User</MenuItem>
                     <MenuItem value="seller">Seller</MenuItem>
                     </Select>
                     {errors.role && (
