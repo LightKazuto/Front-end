@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import registerTransaction from "../pages/api/addKeranjang";
 
 const apiHeroku = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -16,16 +15,6 @@ interface ModalProps {
     user_id: number;
   } | null;
   userRole: "user" | "seller" | "guest";
-}
-
-interface TransactionProps {
-  id: number;
-  from_user_id: number;
-  to_user_id: number;
-  product_id: number;
-  product_quantity: number;
-  total_price: number;
-  status: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -51,46 +40,38 @@ const Modal: React.FC<ModalProps> = ({
     setSuccess(null);
 
     try {
-      // const transaction: TransactionProps = {
-      //   id: Date.now(),
-      //   from_user_id: product.user_id,
-      //   to_user_id: parseInt(localStorage.getItem("user_id") || "0"), // Fallback to 0 if no user_id is found
-      //   product_id: product.id,
-      //   product_quantity: 1,
-      //   total_price: product.price,
-      //   status: "cart"
-
-      // };
-
       const formData = new FormData();
-        // formData.append("id");
-        formData.append("from_user_id", product.user_id.toString());
-        formData.append(
-          "to_user_id",
-          parseInt(localStorage.getItem("user_id") || "0").toString()
-        );
-        formData.append("product_id", product.id.toString());
-        formData.append("product_quantity", "1");
-        formData.append("total_price", product.price.toString());
-        formData.append("status", "cart");
+      formData.append("from_user_id", localStorage.getItem("user_id") || "0");
+      formData.append("to_user_id", product.user_id.toString());
+      formData.append("product_id", product.id.toString());
+      formData.append("product_quantity", "1");
+      formData.append("total_price", product.price.toString());
+      formData.append("status", "cart");
 
-    const response = await fetch(`${apiHeroku}/register/transactions`, {
-      method: "POST",
+      const response = await fetch(`${apiHeroku}/register/transactions`, {
+        method: "POST",
         body: formData,
-    });
+      });
 
-      if (response) {
+      if (response.ok) {
         setSuccess("Item added to cart successfully!");
+      } else {
+        throw new Error("Failed to add item to cart.");
       }
-      else {
-        setError("Failed to add item to cart. Please try again.");
-    }
-    } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+    } catch (err: any) {
+      setError(
+        err.message || "An unexpected error occurred. Please try again."
+      );
     } finally {
       setLoading(false);
-  }
-};
+    }
+  };
+
+  const formatPrice = (price: number) => {
+    const numericPrice = Number(price);
+    if (isNaN(numericPrice)) return "Invalid price";
+    return numericPrice.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 text-black">
@@ -110,27 +91,29 @@ const Modal: React.FC<ModalProps> = ({
           <div className="ml-10">
             <h2 className="text-2xl font-bold mb-3">{product.product_name}</h2>
             <p className="text-3xl text-red-500 font-medium mb-4">
-              Rp.{product.price}
+              Rp {formatPrice(product.price)}
             </p>
-            <p className="text-lg font-bold mb-4">Qty : {product.stock}</p>
+            <p className="text-lg font-bold mb-4">Qty: {product.stock}</p>
             <div className="text-md text-justify">
-              <p className="font-bold">Description :</p>
-              <p className="font-normal">{product.description}</p>
+              <p className="font-bold">Description:</p>
+              <p className="font-normal w-full break-words">
+                {product.description}
+              </p>
             </div>
           </div>
         </div>
-            {userRole === "user" && (
+        {userRole === "user" && (
           <div className="float-right pt-5">
-                <button
-                  onClick={handleAddToCart}
+            <button
+              onClick={handleAddToCart}
               disabled={loading}
               className={`px-4 py-2 ${
                 loading ? "bg-gray-400" : "bg-green-400"
               } text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300`}>
               {loading ? "Loading..." : "+ Keranjang"}
-                </button>
-              </div>
-            )}
+            </button>
+          </div>
+        )}
         {error && <p className="text-red-500 mt-4">{error}</p>}
         {success && <p className="text-green-500 mt-4">{success}</p>}
       </div>
