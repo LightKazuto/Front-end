@@ -41,8 +41,8 @@ const Modal: React.FC<ModalProps> = ({
 
     try {
       const formData = new FormData();
-      formData.append("from_user_id", localStorage.getItem("user_id") || "0");
-      formData.append("to_user_id", product.user_id.toString());
+      formData.append("from_user_id", product.user_id.toString());
+      formData.append("to_user_id", localStorage.getItem("user_id") || "0");
       formData.append("product_id", product.id.toString());
       formData.append("product_quantity", "1");
       formData.append("total_price", product.price.toString());
@@ -79,7 +79,8 @@ const Modal: React.FC<ModalProps> = ({
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          aria-label="Close Modal">
+          aria-label="Close Modal"
+        >
           &times;
         </button>
         <div className="flex items-center pl-4 h-auto">
@@ -109,7 +110,8 @@ const Modal: React.FC<ModalProps> = ({
               disabled={loading}
               className={`px-4 py-2 ${
                 loading ? "bg-gray-400" : "bg-green-400"
-              } text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300`}>
+              } text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300`}
+            >
               {loading ? "Loading..." : "+ Keranjang"}
             </button>
           </div>
