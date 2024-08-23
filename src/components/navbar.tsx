@@ -60,8 +60,11 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
             )}
             {userRole === "user" && (
               <>
-                <a href="/cart" className="text-gray-700 hover:text-gray-900">
+                <a href="/cart" className="mr-3 text-gray-700 hover:text-gray-900">
                   <i className="fa-solid fa-cart-shopping text-lg"></i>
+                </a>
+                <a href="/account" className="text-gray-700 hover:text-gray-900">
+                <i className="fa fa-user" aria-hidden="true"></i>
                 </a>
                 <button
                   onClick={onLogout}

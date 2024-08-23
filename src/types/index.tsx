@@ -33,8 +33,10 @@ export interface RegisterTransactionResponse {
 export interface Transaction {
   id: string;
   image_url: string;
-  name: string;
+  product_name: string;
   description: string;
-  amount: number;
+  quantity: number;
+  total_price: number;
   date: string;
+  seller: string;
 }
